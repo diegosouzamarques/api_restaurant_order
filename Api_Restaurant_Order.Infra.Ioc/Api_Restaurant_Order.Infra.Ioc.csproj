@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Api_Restaurant_Order.Application\Api_Restaurant_Order.Application.csproj" />
+    <ProjectReference Include="..\Api_Restaurant_Order.Domain\Api_Restaurant_Order.Domain.csproj" />
+    <ProjectReference Include="..\Api_Restaurant_Order.Infra.Data\Api_Restaurant_Order.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
