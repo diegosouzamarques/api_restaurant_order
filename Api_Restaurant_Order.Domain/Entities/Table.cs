@@ -7,10 +7,14 @@ namespace Api_Restaurant_Order.Domain.Entities
     {
         [Key]
         public int Id { get; private set; }
+
+        [MinLength(3), MaxLength(50)]
         public string Title { get; private set; }
 
         [Range(1, int.MaxValue)]
         public int AmountPeople { get; private set; }
+
+        [MaxLength(15)]
         public string Status { get; set; }
 
         public Table(int id,string title, int amountPeople, string status)

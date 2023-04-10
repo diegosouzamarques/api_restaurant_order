@@ -2,11 +2,6 @@
 using Api_Restaurant_Order.Domain.Repositories;
 using Api_Restaurant_Order.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Api_Restaurant_Order.Infra.Data.Repositories
 {
@@ -44,9 +39,9 @@ namespace Api_Restaurant_Order.Infra.Data.Repositories
             return await _appDbContext.PhotoDisheDrinks.FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<ICollection<PhotoDisheDrink>> GetPhotoDisheDrinkAsync()
+        public async Task<ICollection<PhotoDisheDrink>> GetPhotoDisheDrinkAsync(int disheDrinkId)
         {
-            return await _appDbContext.PhotoDisheDrinks.ToListAsync();
+            return await _appDbContext.PhotoDisheDrinks.Where(w => w.DisheDrinkId == disheDrinkId).ToListAsync();
         }
     }
 }

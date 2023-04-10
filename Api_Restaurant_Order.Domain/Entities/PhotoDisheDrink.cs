@@ -8,6 +8,8 @@ namespace Api_Restaurant_Order.Domain.Entities
         [Key]
         public int Id { get; private set; }
         public int DisheDrinkId { get; private set;}
+
+        [MaxLength(255)]
         public string Url { get; private set; }
         public DisheDrink DisheDrink { get; private set; }
 
@@ -25,8 +27,7 @@ namespace Api_Restaurant_Order.Domain.Entities
 
         }
         private void Validade(int disheDrinkId, string url)
-        {
-            c
+        {            
             DomainValidationException.When(string.IsNullOrEmpty(url), "Url da foto deve ser informado!");
             DisheDrinkId = disheDrinkId;
             Url = url;

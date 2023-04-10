@@ -8,7 +8,11 @@ namespace Api_Restaurant_Order.Domain.Entities
         [Key]
         public int Id { get;  private set; }
         public int TableID { get; private set; }
+
+        [MinLength(3), MaxLength(100)]
         public string Requester { get; private set; }
+
+        [MaxLength(250)]
         public string Note { get; private set; }
         public List<ItemOrder> ItemsOrder { get;private set; }
         public Table Table { get; private set; }
