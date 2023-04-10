@@ -40,8 +40,8 @@ namespace Api_Restaurant_Order.Infra.Data.Repositories
         }
 
         public async Task<ICollection<DisheDrink>> GetDishesDrinkAsync()
-        {
-            return await _appDbContext.DisheDrinks.ToListAsync();
+        {     
+           return await _appDbContext.DisheDrinks.ToListAsync();        
         }
     }
 }
