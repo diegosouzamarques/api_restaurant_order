@@ -19,8 +19,19 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
                 .WithMessage("Título máximo 50 caracteres");
 
             RuleFor(x => x.AmountPeople)
-                .LessThanOrEqualTo(0)
+                .Must(NotEqualZero)
                 .WithMessage("Quantidade de lugares deve ser informado!");
+
+            RuleFor(x => x.Status)
+                .NotNull()
+                .NotEmpty()
+                .IsInEnum()
+                .WithMessage("Status da mesa dever ser informado de forma correta!");
+        }
+
+        private bool NotEqualZero(int value)
+        {
+            return !(value <= 0);
         }
     }
 }

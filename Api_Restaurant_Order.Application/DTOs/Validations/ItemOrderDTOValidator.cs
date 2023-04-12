@@ -13,19 +13,29 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
         {
 
             RuleFor(x => x.DisheDrinkId)
-                .LessThanOrEqualTo(0)
+                .Must(NotEqualZero)
                 .WithMessage("Id prato ou bebida deve ser informado!");
 
             RuleFor(x => x.OrderId)
-                .LessThanOrEqualTo(0)
+                .Must(NotEqualZero)
                 .WithMessage("Id do pedido deve ser informado!");
 
             RuleFor(x => x.Price)
-                .LessThanOrEqualTo(0)
+                .Must(NotEqualZeroDecima)
                 .WithMessage("Preço deve ser informado!")
                 .PrecisionScale(10, 2, false)
                 .WithMessage("Preço tipo decimal tamanho 10 decimal 2 digitos");
 
+        }
+
+        private bool NotEqualZeroDecima(decimal value)
+        {
+            return !(value <= 0);
+        }
+
+        private bool NotEqualZero(int value)
+        {
+            return !(value <= 0);
         }
     }
 }

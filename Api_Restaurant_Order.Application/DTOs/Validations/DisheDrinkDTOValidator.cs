@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Api_Restaurant_Order.Application.DTOs.Validations
 {
@@ -11,12 +6,18 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
     {
         public DisheDrinkDTOValidator()
         {
+            RuleFor(x => x.Kind)
+            .NotNull()
+            .NotEmpty()
+            .IsInEnum()
+            .WithMessage("Espécie do alimento deve ser informado corretamente!");
+
             RuleFor(x => x.Title)
                  .NotNull()
                  .NotEmpty()
                  .WithMessage("Título deve ser informado!")
                  .MaximumLength(40)
-                 .WithMessage("Título máximo 40 caracteres");
+                 .WithMessage("Título máximo 40 caracteresss");
 
             RuleFor(x => x.Descript)
                  .NotNull()
@@ -39,11 +40,18 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
 
 
             RuleFor(x => x.Price)
-                  .LessThanOrEqualTo(0)
+                  .NotNull()    
+                  .NotEmpty()
+                  .Must(NotEqualZero) 
                   .WithMessage("Preço deve ser informado!")
                   .PrecisionScale(10, 2, false)
                   .WithMessage("Preço tipo decimal tamanho 10 decimal 2 digitos");
 
+        }
+
+        private bool NotEqualZero(decimal price)
+        {
+            return !(price <= 0);
         }
     }
 }

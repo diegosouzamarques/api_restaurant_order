@@ -12,7 +12,7 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
         public OrderDTOValidator()
         {
             RuleFor(x => x.TableID)
-                .LessThanOrEqualTo(0)
+                .Must(NotEqualZero)
                 .WithMessage("Id da mesa deve ser informado!");
 
             RuleFor(x => x.Requester)
@@ -25,6 +25,11 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
             RuleFor(x => x.Note)
                  .MaximumLength(250)
                  .WithMessage("Solicitante máximo 250 caracteres");
+        }
+
+        private bool NotEqualZero(int value)
+        {
+            return !(value <= 0);
         }
     }
 }

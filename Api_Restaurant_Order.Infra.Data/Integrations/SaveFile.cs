@@ -10,7 +10,7 @@ namespace Api_Restaurant_Order.Infra.Data.Integrations
         {
             // exemplo path
             // aws servie stoge img or idrive implements 
-            _filePath = "C:/Users/Public/arquivos";
+            _filePath = "D:/Api_Restaurant_Order/arquivos";
         }
 
         public string Save(byte[] file, string fileExt)

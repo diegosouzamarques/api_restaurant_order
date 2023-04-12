@@ -4,23 +4,20 @@ using Api_Restaurant_Order.Application.Services.Interface;
 using Api_Restaurant_Order.Domain.Entities;
 using Api_Restaurant_Order.Domain.Repositories;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Api_Restaurant_Order.Application.Services
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepo;
+        private readonly ITableRepository _tableRepo;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepo, IMapper mapper)
+        public OrderService(IOrderRepository orderRepo, IMapper mapper, ITableRepository tableRepo)
         {
             _orderRepo = orderRepo;
             _mapper = mapper;
+            _tableRepo = tableRepo;
         }
 
         public async Task<ResultService<OrderDTO>> CreateAsync(OrderDTO orderDTO)
@@ -32,6 +29,11 @@ namespace Api_Restaurant_Order.Application.Services
 
             if (!result.IsValid)
                 return ResultService.RequestError<OrderDTO>("Problemas de validade!", result);
+
+            var table = await _tableRepo.GetByIdAsync(orderDTO.TableID);
+
+            if(table == null)
+                return ResultService.Fail<OrderDTO>("Mesa informada não existe!");
 
             var order = _mapper.Map<Order>(orderDTO);
 

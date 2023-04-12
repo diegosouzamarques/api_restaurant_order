@@ -13,13 +13,5 @@ namespace Api_Restaurant_Order.Infra.Data.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<PhotoDisheDrink> PhotoDisheDrinks { get; set; }
         public DbSet<Table> Tables { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-
-        }
     }
 }

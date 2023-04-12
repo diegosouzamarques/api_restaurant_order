@@ -7,7 +7,8 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
         public PhotoDisheDrinkDTOValidator()
         {
             RuleFor(x => x.DisheDrinkId)
-            .LessThanOrEqualTo(0)
+                  .NotNull()
+                  .Must(NotEqualZero)
             .WithMessage("Id do prato ou bedida deve ser informado!");
 
             RuleFor(x => x.File)
@@ -15,6 +16,11 @@ namespace Api_Restaurant_Order.Application.DTOs.Validations
             .NotEmpty()
             .WithMessage("Imagem deve ser informado!");
 
+        }
+
+        private bool NotEqualZero(int value)
+        {
+            return !(value <= 0);
         }
     }
 }

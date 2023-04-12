@@ -2,9 +2,9 @@
 {
     public class OrderDTO
     {
-        public int Id { get; private set; }
-        public int TableID { get; private set; }
-        public string Requester { get; private set; }
-        public string Note { get; private set; }
+        public int Id { get; set; }
+        public int TableID { get; set; }
+        public string Requester { get; set; }
+        public string? Note { get; set; }
     }
 }

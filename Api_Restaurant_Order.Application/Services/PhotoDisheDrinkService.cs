@@ -35,7 +35,7 @@ namespace Api_Restaurant_Order.Application.Services
             if (!validations.IsValid)
                 return ResultService.RequestError("Problemas com a validação", validations);
 
-            var disheDrink = await _photoDisheDrinkRepo.GetByIdAsync(photoDisheDrinkDTO.DisheDrinkId);
+            var disheDrink = await _disheDrinkRepo.GetByIdAsync(photoDisheDrinkDTO.DisheDrinkId);
             if (disheDrink == null)
                 return ResultService.Fail("Prato ou Bebida não encontrado");
 
@@ -57,7 +57,7 @@ namespace Api_Restaurant_Order.Application.Services
 
             var patthImage = _saveFile.Save(memoryStream.ToArray(), extFile);
 
-            var photoDisheDrink = new  PhotoDisheDrink(disheDrink.Id, patthImage);
+            var photoDisheDrink = new PhotoDisheDrink() { DisheDrinkId = disheDrink.Id, Url = patthImage };
             await _photoDisheDrinkRepo.CreateAsync(photoDisheDrink);
 
             return ResultService.Ok("Image salva");
@@ -85,14 +85,14 @@ namespace Api_Restaurant_Order.Application.Services
             };
         }
 
-        public async Task<ResultService<ICollection<int>>> GetPhotosAsync(int disheDrinkId)
+        public async Task<ResultService<ICollection<PhotoDisheDrinkViewDTO>>> GetPhotosAsync(int disheDrinkId)
         {
             if (disheDrinkId <= 0)
-                return ResultService.Fail<ICollection<int>>("Id do Prato ou Bebida deve ser informado");
+                return ResultService.Fail<ICollection<PhotoDisheDrinkViewDTO>>("Id do Prato ou Bebida deve ser informado");
 
             var disheDrinkPhoto = await _photoDisheDrinkRepo.GetPhotoDisheDrinkAsync(disheDrinkId);
 
-            return ResultService.Ok<ICollection<int>>(_mapper.Map<ICollection<int>>(disheDrinkPhoto));
+            return ResultService.Ok<ICollection<PhotoDisheDrinkViewDTO>>(_mapper.Map<ICollection<PhotoDisheDrinkViewDTO>>(disheDrinkPhoto));
         }
 
         private bool extensionAccepted(string extFile)

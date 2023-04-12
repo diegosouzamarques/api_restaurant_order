@@ -1,18 +1,16 @@
 ﻿using Api_Restaurant_Order.Application.DTOs;
 using Api_Restaurant_Order.Application.Services.Interface;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace Api_Restaurant_Order.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TableServiceController : ControllerBase
+    public class TableController : ControllerBase
     {
         private readonly ITableService _tableService;
 
-        public TableServiceController(ITableService tableService)
+        public TableController(ITableService tableService)
         {
             _tableService = tableService;
         }

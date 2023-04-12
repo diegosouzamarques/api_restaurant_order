@@ -15,7 +15,7 @@ namespace Api_Restaurant_Order.Application.Mappings
             CreateMap<DisheDrink, DisheDrinkDTO>();
             CreateMap<ItemOrder, ItemOrderDTO>();
             CreateMap<Order, OrderDTO>();
-            CreateMap<PhotoDisheDrink, PhotoDisheDrinkDTO>();
+            CreateMap<PhotoDisheDrink, PhotoDisheDrinkViewDTO>();
             CreateMap<Table, TableDTO>();
         }
     }
