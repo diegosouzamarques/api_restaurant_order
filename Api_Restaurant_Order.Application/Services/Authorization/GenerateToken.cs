@@ -22,16 +22,20 @@ namespace Api_Restaurant_Order.Application.Services.Authorization
 
         public TokenDTO GenerateAccessToken(User user)
         {
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.SerialNumber, user.Id.ToString())
+                new Claim("UserName", user.Username),
+                new Claim("Email", user.Email),
+                new Claim("SerialNumber", user.Id.ToString())
             };
 
             user.UserPermissions.ToList().ForEach(p =>
             {
-                claims.Add(new Claim(ClaimTypes.Role, p.Permission.PermissionName));
+                claims.Add(new Claim("role", p.Permission.PermissionName));
 
             });
 

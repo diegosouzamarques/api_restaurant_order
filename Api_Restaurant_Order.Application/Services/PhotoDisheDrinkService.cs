@@ -63,6 +63,28 @@ namespace Api_Restaurant_Order.Application.Services
             return ResultService.Ok("Image salva");
         }
 
+        public async Task<ResultService> DeleteImageAsync(int idPhoto)
+        {
+            if (idPhoto <= 0)
+                throw new Exception("Id da foto deve ser informado");
+
+            var photo = await _photoDisheDrinkRepo.GetByIdAsync(idPhoto);
+
+            if (photo == null)
+                throw new Exception("Foto não encontrada");
+
+            try
+            {
+                if (!string.IsNullOrEmpty(photo.Url))
+                    File.Delete(photo.Url);
+            }
+            catch { }
+
+            await _photoDisheDrinkRepo.DeleteAsync(photo);
+
+            return ResultService.Ok("Foto removido com sucesso");
+        }
+
         public async Task<ActionResult> GetDownloadImageAsync(int idPhoto)
         {
             if (idPhoto <= 0)

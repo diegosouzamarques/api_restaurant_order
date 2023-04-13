@@ -123,5 +123,37 @@ namespace Api_Restaurant_Order.Api.Controllers
 
 
         }
+
+        #region Documentation
+        /// Delete api/PhotoDisheDrink/{id}
+        /// <summary>
+        ///  Remove a photo by ID code
+        /// </summary>
+        /// <response code="200">
+        ///    Return will be that photo was successfully removed
+        /// </response>
+        /// <response code="400">Return with description of what is missing from the request
+        /// </response>  
+        #endregion
+        [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = UserRoles.Order_Delete)]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            try
+            {
+                var result = await _photoService.DeleteImageAsync(id);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+
+                return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                var result = StatusCode(StatusCodes.Status500InternalServerError, ex.GetaAllMessages());
+                return result;
+            }
+        }
     }
 }

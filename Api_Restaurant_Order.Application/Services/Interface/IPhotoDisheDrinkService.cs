@@ -13,5 +13,6 @@ namespace Api_Restaurant_Order.Application.Services.Interface
         Task<ResultService> CreateAsync(PhotoDisheDrinkDTO photoDisheDrinkDTO);
         Task<ResultService<ICollection<PhotoDisheDrinkViewDTO>>> GetPhotosAsync(int disheDrinkId);
         Task<ActionResult> GetDownloadImageAsync(int idPhoto);
+        Task<ResultService> DeleteImageAsync(int idPhoto);
     }
 }

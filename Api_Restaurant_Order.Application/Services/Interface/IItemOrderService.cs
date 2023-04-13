@@ -10,9 +10,7 @@ namespace Api_Restaurant_Order.Application.Services.Interface
     public interface IItemOrderService
     {
         Task<ResultService<ItemOrderDTO>> CreateAsync(ItemOrderDTO itemOrderDTO);
-        Task<ResultService<ICollection<ItemOrderDTO>>> GetAsync();
-        Task<ResultService<ItemOrderDTO>> GetByIdAsync(int id);
-        Task<ResultService<ItemOrderDTO>> UpdateAsync(ItemOrderDTO itemOrderDTO);
+        Task<ResultService<ICollection<ItemOrderDTO>>> GetItemsOrderAsync(int OrderId);
         Task<ResultService> DeleteAsync(int id);
     }
 }

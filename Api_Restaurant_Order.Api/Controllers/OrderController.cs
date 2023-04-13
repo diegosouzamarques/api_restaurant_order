@@ -123,7 +123,27 @@ namespace Api_Restaurant_Order.Api.Controllers
         }
 
         #region Documentation
-
+        /// PUT api/DisheDrink
+        /// <summary>
+        /// Updates information of a Order found by id
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     POST
+        ///     {
+        ///       "id": 1,
+        ///       "tableID": 10,
+        ///       "requester": "Diego Marques",
+        ///       "note": "Mustard sauce"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">
+        /// Return will be the Order updated with the information sent
+        /// </response>
+        /// <response code="400">Return with description of what is missing from the request
+        /// </response>  
         #endregion
         [HttpPut]
         [Authorize(Roles = UserRoles.Order_Edit)]

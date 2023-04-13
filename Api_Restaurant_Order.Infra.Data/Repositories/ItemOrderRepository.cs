@@ -27,21 +27,15 @@ namespace Api_Restaurant_Order.Infra.Data.Repositories
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<ItemOrder> EditAsync(ItemOrder itemOrder)
+        public async Task<ItemOrder> GetByIdAsync(int itemId)
         {
-            _appDbContext.Update(itemOrder);
-            await _appDbContext.SaveChangesAsync();
-            return itemOrder;
+            return await _appDbContext.ItemOrders.FirstOrDefaultAsync(w => w.Id == itemId);
         }
 
-        public async Task<ItemOrder> GetByIdAsync(int id)
+        public async Task<ICollection<ItemOrder>> GetItemsOrderAsync(int OrderId)
         {
-            return await _appDbContext.ItemOrders.FirstOrDefaultAsync(f => f.Id == id);
-        }
-
-        public async Task<ICollection<ItemOrder>> GetItemOrderAsync()
-        {
-            return await _appDbContext.ItemOrders.ToListAsync();
+            return await _appDbContext.ItemOrders.Where(w => w.OrderId == OrderId).ToListAsync();
+                
         }
     }
 }

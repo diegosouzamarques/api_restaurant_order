@@ -61,42 +61,12 @@ namespace Api_Restaurant_Order.Api.Controllers
         }
 
         #region Documentation
-        /// Get api/ItemOrder
-        /// <summary>
-        ///    Search all registered items of an order
-        /// </summary>
-        /// <response code="200">
-        ///   Returns list of items from an order
-        /// </response>
-        /// <response code="400">Return with description of what is missing from the request
-        /// </response>  
-        #endregion
-        [HttpGet]
-        [Authorize(Roles = UserRoles.Item_Search)]
-        public async Task<ActionResult> GetAsync()
-        {
-            try
-            {
-                var result = await _itemOrderService.GetAsync();
-                if (result.IsSuccess)
-                    return Ok(result);
-
-                return BadRequest(result);
-            }
-            catch (Exception ex)
-            {
-                var result = StatusCode(StatusCodes.Status500InternalServerError, ex.GetaAllMessages());
-                return result;
-            }
-        }
-
-        #region Documentation
         /// Get api/ItemOrder/{id}
         /// <summary>
-        ///    Search for a specific item by its id
+        ///    Search all items in an order
         /// </summary>
         /// <response code="200">
-        ///    Return will be the item found by id
+        ///    Returns all items linked to an order
         /// </response>
         /// <response code="400">Return with description of what is missing from the request
         /// </response>  
@@ -104,33 +74,11 @@ namespace Api_Restaurant_Order.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize(Roles = UserRoles.Item_Search)]
-        public async Task<ActionResult> GetByIdAsync(int id)
+        public async Task<ActionResult> GetByIdAsync(int OrderId)
         {
             try
             {
-                var result = await _itemOrderService.GetByIdAsync(id);
-                if (result.IsSuccess)
-                    return Ok(result);
-
-                return BadRequest(result);
-            }
-            catch (Exception ex)
-            {
-                var result = StatusCode(StatusCodes.Status500InternalServerError, ex.GetaAllMessages());
-                return result;
-            }
-        }
-
-        #region Documentation
-
-        #endregion
-        [HttpPut]
-        [Authorize(Roles = UserRoles.Item_Edit)]
-        public async Task<ActionResult> UpdateAsync([FromBody] ItemOrderDTO itemOrderDTO)
-        {
-            try
-            {
-                var result = await _itemOrderService.UpdateAsync(itemOrderDTO);
+                var result = await _itemOrderService.GetItemsOrderAsync(OrderId);
                 if (result.IsSuccess)
                     return Ok(result);
 

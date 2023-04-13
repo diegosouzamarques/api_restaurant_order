@@ -2,8 +2,11 @@
 using Api_Restaurant_Order.Application.DTOs.Validations;
 using Api_Restaurant_Order.Application.Services.Interface;
 using Api_Restaurant_Order.Domain.Entities;
+using Api_Restaurant_Order.Domain.Enumerator;
 using Api_Restaurant_Order.Domain.Repositories;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Api_Restaurant_Order.Application.Services
 {
@@ -36,6 +39,9 @@ namespace Api_Restaurant_Order.Application.Services
 
         public async Task<ResultService> DeleteAsync(int id)
         {
+            if (id <= 0)
+                throw new Exception("Id do item deve ser informado");
+
             var itemOrder = await _itemOrderRepo.GetByIdAsync(id);
             if (itemOrder == null)
                 return ResultService.Fail("Item não encontrado");
@@ -45,42 +51,16 @@ namespace Api_Restaurant_Order.Application.Services
             return ResultService.Ok("Item removido");
         }
 
-        public async Task<ResultService<ICollection<ItemOrderDTO>>> GetAsync()
+        public async Task<ResultService<ICollection<ItemOrderDTO>>> GetItemsOrderAsync(int OrderId)
         {
-            var items = await _itemOrderRepo.GetItemOrderAsync();
-            return ResultService.Ok<ICollection<ItemOrderDTO>>(_mapper.Map<ICollection<ItemOrderDTO>>(items));
-        }
+            if (OrderId <= 0)
+                throw new Exception("Id do pedido deve ser informado");
 
-        public async Task<ResultService<ItemOrderDTO>> GetByIdAsync(int id)
-        {
-            var itemOrder = await _itemOrderRepo.GetByIdAsync(id);
-            if (itemOrder == null)
-                return ResultService.Fail<ItemOrderDTO>("Item não encontrado");
+            var itemsOrder = await _itemOrderRepo.GetItemsOrderAsync(OrderId);
+            if (itemsOrder == null)
+                return ResultService.Fail<ICollection<ItemOrderDTO>> ("Itens não encontrado");
 
-            return ResultService.Ok<ItemOrderDTO>(_mapper.Map<ItemOrderDTO>(itemOrder));
-        }
-
-        public async Task<ResultService<ItemOrderDTO>> UpdateAsync(ItemOrderDTO itemOrderDTO)
-        {
-            if (itemOrderDTO == null)
-                return ResultService.Fail<ItemOrderDTO>("Objeto deve ser informado");
-
-            var validation = new ItemOrderDTOValidator().Validate(itemOrderDTO);
-
-            if (!validation.IsValid)
-                return ResultService.RequestError<ItemOrderDTO>("Problema com a validadção dos campos", validation);
-
-
-            var item = await _itemOrderRepo.GetByIdAsync(itemOrderDTO.Id);
-
-            if (item == null)
-                return ResultService.Fail<ItemOrderDTO>("Item não encontrado");
-
-            item = _mapper.Map<ItemOrderDTO, ItemOrder>(itemOrderDTO, item);
-
-            await _itemOrderRepo.EditAsync(item);
-
-            return ResultService.Ok<ItemOrderDTO>(_mapper.Map<ItemOrderDTO>(item));
+            return ResultService.Ok<ICollection<ItemOrderDTO>>(_mapper.Map<ICollection<ItemOrderDTO>>(OrderId));
         }
     }
 }
