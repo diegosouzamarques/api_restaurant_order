@@ -1,11 +1,8 @@
 ﻿using Api_Restaurant_Order.Application.DTOs;
+using Api_Restaurant_Order.Application.DTOs.Authorization;
 using Api_Restaurant_Order.Domain.Entities;
+using Api_Restaurant_Order.Domain.Entities.Authorization;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Api_Restaurant_Order.Application.Mappings
 {
@@ -17,6 +14,8 @@ namespace Api_Restaurant_Order.Application.Mappings
             CreateMap<Order, OrderDTO>();
             CreateMap<PhotoDisheDrink, PhotoDisheDrinkViewDTO>();
             CreateMap<Table, TableDTO>();
+            CreateMap<User, UserDTO>();
+            CreateMap<Permission, PermissionDTO>();
         }
     }
 }

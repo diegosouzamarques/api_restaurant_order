@@ -19,5 +19,10 @@ namespace Api_Restaurant_Order.Domain.Entities
         public List<ItemOrder> ItemsOrder { get; set; }
         public Table Table { get; set; }
 
+        public Order()
+        {
+            ItemsOrder= new List<ItemOrder>();
+        }
+
     }
 }

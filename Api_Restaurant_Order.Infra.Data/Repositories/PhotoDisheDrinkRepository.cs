@@ -27,13 +27,6 @@ namespace Api_Restaurant_Order.Infra.Data.Repositories
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<PhotoDisheDrink> EditAsync(PhotoDisheDrink photoDisheDrink)
-        {
-            _appDbContext.Update(photoDisheDrink);
-            await _appDbContext.SaveChangesAsync();
-            return photoDisheDrink;
-        }
-
         public async Task<PhotoDisheDrink> GetByIdAsync(int id)
         {
             return await _appDbContext.PhotoDisheDrinks.FirstOrDefaultAsync(f => f.Id == id);

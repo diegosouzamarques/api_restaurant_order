@@ -33,7 +33,12 @@ namespace Api_Restaurant_Order.Domain.Entities
         [Range(0.01, double.MaxValue)]
         [Column(TypeName = "decimal(10, 2)")]
         public decimal Price { get; set; }
-        public ICollection<PhotoDisheDrink> PhotosDisheDrink { get; private set; }  
+        public ICollection<PhotoDisheDrink> PhotosDisheDrink { get; private set; }
+
+        public DisheDrink()
+        {
+            PhotosDisheDrink = new List<PhotoDisheDrink>();
+        }
 
     }
 }
